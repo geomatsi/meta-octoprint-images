@@ -1,0 +1,49 @@
+Dependencies
+============
+
+This layer depends on:
+
+  URI: git://git.openembedded.org/bitbake
+  branch: master
+
+  git://git.yoctoproject.org/meta-maker
+  branch: rocko/pyro
+
+
+Notes
+=====
+
+Compatibility
+-------------
+Here are the test results for compatibility with meta-maker branches:
+- meta-octoprint-images/master and meta-maker/rocko branches
+  -- tested with commit 3e2e6fd164ab6debe86734554135c80a2e50a865
+- meta-octoprint-images/TODO and meta-maker/pyro branches
+  -- TODO
+
+Python dependencies
+-------------------
+There are two 'custom' conflicting packages in meta-maker: python-werkzeug11 and python-jinja2.8.
+Their 'standard' versions are provided by meta-openembedded/meta-python layer. Bitbake reports
+warnings when rootfs is generated:
+
+  Consider defining a PREFERRED_RPROVIDER entry to match python-werkzeug
+  Consider defining a PREFERRED_RPROVIDER entry to match python-jinja2
+
+However rootfs is successfully generated anyways. It looks like the reason is as follows.
+Both 'custom' packages specify python-werkzeug and python-jinja2 respectively in
+RCONFLICTS/RPROVIDES, e.g. in python-werkzeug11 recipe:
+
+  RCONFLICTS_${PN} += "python-werkzeug python-werkzeug08"
+  RPROVIDES_${PN} += "python-werkzeug"
+
+Octoprint package explicitely requests 'custom' werkzeug and jinja2 packages in RDEPENDS.
+Another user of those packages is python-flask, which requests any 'python-werkzeug' and
+'python-jinja2' providers in RDEPENDS. Probably, this is the reason why bitbake is able
+to decide which PROVIDERS to use on its own, without user intervention.
+
+RPM packages
+------------
+RPM has strict checking for files/directories, so sudoers.d.d directory may have different
+mode or user in octoprint and sudo packages. Adding DIRFILES = "1" to octoprint recipe
+modifies ownership for created directories: octoprint does not own them anymore.
