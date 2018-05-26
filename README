@@ -13,6 +13,11 @@ This layer depends on:
 Notes
 =====
 
+HOWTO use
+---------
+For complete instructions on assembling Yocto environment see the following repository:
+https://github.com/geomatsi/yocto-manifests
+
 Compatibility
 -------------
 Here are the test results for compatibility with meta-maker branches:
