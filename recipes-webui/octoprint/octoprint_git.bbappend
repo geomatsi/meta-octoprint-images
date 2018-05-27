@@ -6,6 +6,8 @@
 # do not 'own' directories to avoid conflicts with other packages
 DIRFILES = "1"
 
-RDEPENDS_${PN} += "python-singledispatch \
-                  python-backports-abc \
-"
+RDEPENDS_${PN} += " \
+		python-singledispatch \
+		python-backports-abc \
+		python-pillow \
+		"
