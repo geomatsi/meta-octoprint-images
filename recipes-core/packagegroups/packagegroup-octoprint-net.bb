@@ -13,5 +13,6 @@ RDEPENDS_${PN} = "\
     avahi-daemon \
     avahi-utils \
     openvpn \
+    resolvconf \
     ntp \
     "
