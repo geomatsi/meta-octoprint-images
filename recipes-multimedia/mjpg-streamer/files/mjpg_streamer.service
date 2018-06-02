@@ -1,0 +1,10 @@
+[Unit]
+Description=Webcam Video Streaming
+After=syslog.target network.target
+BindsTo=dev-video0.device
+
+[Service]
+ExecStart=/usr/bin/mjpg_streamer -i "/usr/lib/mjpg-streamer/input_uvc.so -yuv" -o "/usr/lib/mjpg-streamer/output_http.so -p 8080 -w /var/www"
+
+[Install]
+WantedBy=multi-user.target
