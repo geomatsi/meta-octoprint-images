@@ -5,6 +5,7 @@ SRC_URI_append += "file://client.conf"
 do_install_append() {
 	install -d ${D}${sysconfdir}/openvpn
 	install -m 0644 ${WORKDIR}/client.conf ${D}${sysconfdir}/openvpn/
+	install -m 0644 ${WORKDIR}/pass ${D}${sysconfdir}/openvpn/
 
 	install -d ${D}${sysconfdir}/openvpn/resolv
 	install -m 0755 ${S}/contrib/pull-resolv-conf/client.up ${D}${sysconfdir}/openvpn/resolv/
