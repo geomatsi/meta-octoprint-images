@@ -1,6 +1,9 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-SRC_URI_append += "file://client.conf"
+SRC_URI_append += " \
+	file://client.conf \
+	file://pass \
+	"
 
 do_install_append() {
 	install -d ${D}${sysconfdir}/openvpn
