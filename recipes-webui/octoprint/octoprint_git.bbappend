@@ -7,7 +7,5 @@
 DIRFILES = "1"
 
 RDEPENDS_${PN} += " \
-		python-singledispatch \
-		python-backports-abc \
 		python-pillow \
 		"
